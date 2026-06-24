@@ -1,0 +1,28 @@
+# Virtual environment
+venv/
+node_modules/
+Documents/
+
+# Database
+*.db
+
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables
+.env
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Model weights
+*.pth
+*.pt

@@ -1,0 +1,13 @@
+# Dependencies
+node_modules
+
+# Build output
+build
+
+# Version control
+.git
+
+# System/IDE files
+.DS_Store
+.vscode
+.idea

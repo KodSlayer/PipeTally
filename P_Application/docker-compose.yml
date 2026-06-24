@@ -1,0 +1,28 @@
+services:
+  fastapi:
+    build:
+      context: ./Backend
+      dockerfile: dockerfile
+    container_name: pipe_backend
+    image: pipe_backend
+    ports:
+      - "8006:8000"
+    volumes:
+      - ./Backend:/app
+      - ./maskrcnn_pipeV2.pth:/app/Utils/maskrcnn_pipeV2.pth
+    restart: always
+
+  react-ui:
+    build:
+      context: ./Frontend
+      dockerfile: dockerfile
+    container_name: reactapp
+    image: reactapp
+    ports:
+      - "8506:80"
+    volumes:
+      - ./Frontend:/app
+      - /app/node_modules
+    depends_on:
+      - fastapi
+    restart: always

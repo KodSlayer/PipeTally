@@ -1,0 +1,34 @@
+# ==========================================
+# STAGE 1: Build the React Application
+# ==========================================
+FROM node:20-alpine AS build
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the package.json (and package-lock.json if you have one)
+COPY package*.json ./
+
+# Install the React dependencies (replaces pip install)
+RUN npm install
+
+# Copy the rest of your React source code (src, public, tailwind config, etc.)
+COPY . .
+
+# Build the optimized production version of the React app
+# This relies on the "build": "react-scripts build" command in your package.json
+RUN npm run build
+
+# ==========================================
+# STAGE 2: Serve the Application with Nginx
+# ==========================================
+FROM nginx:alpine
+
+# Copy the static built files from the previous stage to Nginx's serving directory
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80 (Standard HTTP port)
+EXPOSE 80
+
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]
